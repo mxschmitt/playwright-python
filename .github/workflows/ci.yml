@@ -19,7 +19,7 @@ jobs:
     - name: Get Node PKG Cache dir
       id: node-pkg-cache
       run: |
-        node -e 'const path = require("path"); console.log("::set-output name=dir::"+path.join(os.tmpdir(), "pkg-cache"))'
+        node -e "const path = require(\"path\"); console.log(\"::set-output name=dir::\"+path.join(os.tmpdir(), \"pkg-cache\"))"
     - name: Cache driver
       id: cache-primes
       uses: actions/cache@v2
