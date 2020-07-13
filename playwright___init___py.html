@@ -21,8 +21,8 @@
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            10 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">10 run</button>
+            11 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">11 run</button>
             <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">0 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
@@ -65,32 +65,33 @@
     <p id="t12" class="pln"><span class="n"><a href="#t12">12</a></span><span class="t"><span class="com"># See the License for the specific language governing permissions and</span>&nbsp;</span><span class="r"></span></p>
     <p id="t13" class="pln"><span class="n"><a href="#t13">13</a></span><span class="t"><span class="com"># limitations under the License.</span>&nbsp;</span><span class="r"></span></p>
     <p id="t14" class="pln"><span class="n"><a href="#t14">14</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t15" class="run"><span class="n"><a href="#t15">15</a></span><span class="t"><span class="key">from</span> <span class="nam">playwright</span><span class="op">.</span><span class="nam">main</span> <span class="key">import</span> <span class="nam">playwright_object</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t16" class="run"><span class="n"><a href="#t16">16</a></span><span class="t"><span class="key">import</span> <span class="nam">playwright</span><span class="op">.</span><span class="nam">helper</span> <span class="key">as</span> <span class="nam">helper</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t17" class="pln"><span class="n"><a href="#t17">17</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t18" class="run"><span class="n"><a href="#t18">18</a></span><span class="t"><span class="nam">chromium</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">chromium</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t19" class="run"><span class="n"><a href="#t19">19</a></span><span class="t"><span class="nam">firefox</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">firefox</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t20" class="run"><span class="n"><a href="#t20">20</a></span><span class="t"><span class="nam">webkit</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">webkit</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t21" class="run"><span class="n"><a href="#t21">21</a></span><span class="t"><span class="nam">devices</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">devices</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t22" class="run"><span class="n"><a href="#t22">22</a></span><span class="t"><span class="nam">browser_types</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">browser_types</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t23" class="run"><span class="n"><a href="#t23">23</a></span><span class="t"><span class="nam">Error</span> <span class="op">=</span> <span class="nam">helper</span><span class="op">.</span><span class="nam">Error</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t24" class="run"><span class="n"><a href="#t24">24</a></span><span class="t"><span class="nam">TimeoutError</span> <span class="op">=</span> <span class="nam">helper</span><span class="op">.</span><span class="nam">TimeoutError</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t25" class="pln"><span class="n"><a href="#t25">25</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t26" class="run"><span class="n"><a href="#t26">26</a></span><span class="t"><span class="nam">__all__</span> <span class="op">=</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t27" class="pln"><span class="n"><a href="#t27">27</a></span><span class="t">    <span class="str">"browser_types"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t28" class="pln"><span class="n"><a href="#t28">28</a></span><span class="t">    <span class="str">"chromium"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t29" class="pln"><span class="n"><a href="#t29">29</a></span><span class="t">    <span class="str">"firefox"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t30" class="pln"><span class="n"><a href="#t30">30</a></span><span class="t">    <span class="str">"webkit"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t31" class="pln"><span class="n"><a href="#t31">31</a></span><span class="t">    <span class="str">"devices"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t32" class="pln"><span class="n"><a href="#t32">32</a></span><span class="t">    <span class="str">"Error"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t33" class="pln"><span class="n"><a href="#t33">33</a></span><span class="t">    <span class="str">"TimeoutError"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t34" class="pln"><span class="n"><a href="#t34">34</a></span><span class="t"><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t15" class="run"><span class="n"><a href="#t15">15</a></span><span class="t"><span class="key">from</span> <span class="nam">playwright</span><span class="op">.</span><span class="nam">_repo_version</span> <span class="key">import</span> <span class="nam">version</span> <span class="key">as</span> <span class="nam">__version__</span>  <span class="com"># noqa:F401</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t16" class="run"><span class="n"><a href="#t16">16</a></span><span class="t"><span class="key">from</span> <span class="nam">playwright</span><span class="op">.</span><span class="nam">main</span> <span class="key">import</span> <span class="nam">playwright_object</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t17" class="run"><span class="n"><a href="#t17">17</a></span><span class="t"><span class="key">import</span> <span class="nam">playwright</span><span class="op">.</span><span class="nam">helper</span> <span class="key">as</span> <span class="nam">helper</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t18" class="pln"><span class="n"><a href="#t18">18</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t19" class="run"><span class="n"><a href="#t19">19</a></span><span class="t"><span class="nam">chromium</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">chromium</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t20" class="run"><span class="n"><a href="#t20">20</a></span><span class="t"><span class="nam">firefox</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">firefox</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t21" class="run"><span class="n"><a href="#t21">21</a></span><span class="t"><span class="nam">webkit</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">webkit</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t22" class="run"><span class="n"><a href="#t22">22</a></span><span class="t"><span class="nam">devices</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">devices</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t23" class="run"><span class="n"><a href="#t23">23</a></span><span class="t"><span class="nam">browser_types</span> <span class="op">=</span> <span class="nam">playwright_object</span><span class="op">.</span><span class="nam">browser_types</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t24" class="run"><span class="n"><a href="#t24">24</a></span><span class="t"><span class="nam">Error</span> <span class="op">=</span> <span class="nam">helper</span><span class="op">.</span><span class="nam">Error</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t25" class="run"><span class="n"><a href="#t25">25</a></span><span class="t"><span class="nam">TimeoutError</span> <span class="op">=</span> <span class="nam">helper</span><span class="op">.</span><span class="nam">TimeoutError</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t26" class="pln"><span class="n"><a href="#t26">26</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t27" class="run"><span class="n"><a href="#t27">27</a></span><span class="t"><span class="nam">__all__</span> <span class="op">=</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t28" class="pln"><span class="n"><a href="#t28">28</a></span><span class="t">    <span class="str">"browser_types"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t29" class="pln"><span class="n"><a href="#t29">29</a></span><span class="t">    <span class="str">"chromium"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t30" class="pln"><span class="n"><a href="#t30">30</a></span><span class="t">    <span class="str">"firefox"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t31" class="pln"><span class="n"><a href="#t31">31</a></span><span class="t">    <span class="str">"webkit"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t32" class="pln"><span class="n"><a href="#t32">32</a></span><span class="t">    <span class="str">"devices"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t33" class="pln"><span class="n"><a href="#t33">33</a></span><span class="t">    <span class="str">"Error"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t34" class="pln"><span class="n"><a href="#t34">34</a></span><span class="t">    <span class="str">"TimeoutError"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t35" class="pln"><span class="n"><a href="#t35">35</a></span><span class="t"><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.2</a>,
-            created at 2020-07-13 12:12
+            created at 2020-07-13 18:06
         </p>
     </div>
 </div>

@@ -21,10 +21,10 @@
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            112 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">84 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">28 missing</button>
-            <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
+            110 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">83 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">27 missing</button>
+            <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">2 excluded</button>
         </h2>
     </div>
 </div>
@@ -87,8 +87,8 @@
     <p id="t34" class="run"><span class="n"><a href="#t34">34</a></span><span class="t"><span class="key">from</span> <span class="nam">types</span> <span class="key">import</span> <span class="nam">SimpleNamespace</span>&nbsp;</span><span class="r"></span></p>
     <p id="t35" class="run"><span class="n"><a href="#t35">35</a></span><span class="t"><span class="key">from</span> <span class="nam">typing</span> <span class="key">import</span> <span class="nam">Any</span><span class="op">,</span> <span class="nam">Callable</span><span class="op">,</span> <span class="nam">Dict</span><span class="op">,</span> <span class="nam">List</span><span class="op">,</span> <span class="nam">Optional</span><span class="op">,</span> <span class="nam">Union</span><span class="op">,</span> <span class="nam">TYPE_CHECKING</span>&nbsp;</span><span class="r"></span></p>
     <p id="t36" class="pln"><span class="n"><a href="#t36">36</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t37" class="run"><span class="n"><a href="#t37">37</a></span><span class="t"><span class="key">if</span> <span class="nam">TYPE_CHECKING</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t38" class="mis show_mis"><span class="n"><a href="#t38">38</a></span><span class="t">    <span class="key">from</span> <span class="nam">playwright</span><span class="op">.</span><span class="nam">browser</span> <span class="key">import</span> <span class="nam">Browser</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t37" class="exc show_exc"><span class="n"><a href="#t37">37</a></span><span class="t"><span class="key">if</span> <span class="nam">TYPE_CHECKING</span><span class="op">:</span>  <span class="com"># pragma: no cover</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t38" class="exc show_exc"><span class="n"><a href="#t38">38</a></span><span class="t">    <span class="key">from</span> <span class="nam">playwright</span><span class="op">.</span><span class="nam">browser</span> <span class="key">import</span> <span class="nam">Browser</span>&nbsp;</span><span class="r"></span></p>
     <p id="t39" class="pln"><span class="n"><a href="#t39">39</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t40" class="pln"><span class="n"><a href="#t40">40</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t41" class="run"><span class="n"><a href="#t41">41</a></span><span class="t"><span class="key">class</span> <span class="nam">BrowserContext</span><span class="op">(</span><span class="nam">ChannelOwner</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -242,7 +242,7 @@
     <p id="t189" class="pln"><span class="n"><a href="#t189">189</a></span><span class="t">            <span class="nam">self</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_timeout_settings</span><span class="op">,</span> <span class="nam">event</span><span class="op">,</span> <span class="nam">predicate</span><span class="op">=</span><span class="nam">predicate</span><span class="op">,</span> <span class="nam">timeout</span><span class="op">=</span><span class="nam">timeout</span>&nbsp;</span><span class="r"></span></p>
     <p id="t190" class="pln"><span class="n"><a href="#t190">190</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t191" class="pln"><span class="n"><a href="#t191">191</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t192" class="run"><span class="n"><a href="#t192">192</a></span><span class="t">    <span class="key">def</span> <span class="nam">_on_close</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t192" class="run"><span class="n"><a href="#t192">192</a></span><span class="t">    <span class="key">def</span> <span class="nam">_on_close</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t193" class="run"><span class="n"><a href="#t193">193</a></span><span class="t">        <span class="key">if</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_browser</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t194" class="run"><span class="n"><a href="#t194">194</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">_browser</span><span class="op">.</span><span class="nam">_contexts</span><span class="op">.</span><span class="nam">remove</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t195" class="pln"><span class="n"><a href="#t195">195</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -261,7 +261,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.2</a>,
-            created at 2020-07-13 12:12
+            created at 2020-07-13 18:06
         </p>
     </div>
 </div>
