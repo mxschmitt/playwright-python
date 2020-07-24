@@ -13,16 +13,6 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs
 
 
-# [Optional] Allow the vscode user to pip install globally w/o sudo
-ENV PIP_TARGET=/usr/local/pip-global
-ENV PYTHONPATH=${PIP_TARGET}:${PYTHONPATH}
-ENV PATH=${PIP_TARGET}/bin:${PATH}
-RUN mkdir -p ${PIP_TARGET} \
-    && chown vscode:root ${PIP_TARGET} \
-    && export SNIPPET="if [ \"\$(stat -c '%U' ${PIP_TARGET})\" != \"vscode\" ]; then chown -R vscode:root ${PIP_TARGET}; fi" \
-    && echo "$SNIPPET" | tee -a /root/.bashrc >> /home/vscode/.bashrc \
-    && echo "$SNIPPET" | tee -a /root/.zshrc >> /home/vscode/.zshrc
-
 # [Optional] Uncomment this section to install additional packages.
 #
 # ENV DEBIAN_FRONTEND=noninteractive

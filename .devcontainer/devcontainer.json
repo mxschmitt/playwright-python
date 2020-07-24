@@ -23,11 +23,7 @@
         "ms-python.python"
     ],
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": [
-        "pip install -r local-requirements.txt",
-        "pip install -e .",
-        "python build_driver.py"
-    ],
+    "postCreateCommand": "pip install -r local-requirements.txt && pip install -e . && python build_driver.py",
     // Comment out to connect as root instead.
     "remoteUser": "vscode"
 }
