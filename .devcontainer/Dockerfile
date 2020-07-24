@@ -13,14 +13,58 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs
 
 
-# [Optional] Uncomment this section to install additional packages.
-#
-# ENV DEBIAN_FRONTEND=noninteractive
-# RUN apt-get update \
-#    && apt-get -y install --no-install-recommends <your-package-list-here> \
-#    #
-#    # Clean up
-#    && apt-get autoremove -y \
-#    && apt-get clean -y \
-#    && rm -rf /var/lib/apt/lists/*
-# ENV DEBIAN_FRONTEND=dialog
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    # WebKit dependencies
+    libwoff1 \
+    libopus0 \
+    libwebp6 \
+    libwebpdemux2 \
+    libenchant1c2a \
+    libgudev-1.0-0 \
+    libsecret-1-0 \
+    libhyphen0 \
+    libgdk-pixbuf2.0-0 \
+    libegl1 \
+    libxslt1.1 \
+    libgles2 \
+    libnotify4 \
+    libharfbuzz-icu0 \
+    # gstreamer and plugins to support video playback in WebKit
+    gstreamer1.0-gl \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-bad \
+    # Chromium dependencies
+    libnss3 \
+    libxss1 \
+    libasound2 \
+    fonts-noto-color-emoji \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libxcomposite1 \
+    libcups2 \
+    libgtk-3-0 \
+    # Firefox dependencies
+    libdbus-glib-1-2 \
+    libxt6 \
+    # FFmpeg to bring in audio and video codecs necessary for playing videos in Firefox
+    ffmpeg \
+    # (Optional) XVFB if there's a need to run browsers in headful mode
+    xvfb \
+    # For compiling libjpeg for WebKit
+    curl \
+    gcc \
+    make
+
+# Compiling libjpeg for WebKit
+RUN cd /tmp && \
+    curl -s http://www.ijg.org/files/jpegsrc.v8d.tar.gz | tar zx && \
+    cd jpeg-8d && \
+    ./configure && \
+    make && \
+    make install
+
+# Add directory in which libjpeg was built to the search path
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
