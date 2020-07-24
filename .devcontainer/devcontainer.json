@@ -1,0 +1,33 @@
+{
+    "name": "Python 3 Playwright",
+    "context": "..",
+    "build": {
+        "dockerfile": "Dockerfile",
+        // Update 'VARIANT' to pick a Python version. Rebuild the container
+        // if it already exists to update. Available variants: 3, 3.6, 3.7, 3.8
+        "args": {
+            "VARIANT": "3.8"
+        }
+    },
+    // Set *default* container specific settings.json values on container create.
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "python.pythonPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+        "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+        "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
+    },
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": [
+        "ms-python.python"
+    ],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": [
+        "pip install -r local-requirements.txt",
+        "pip install -e .",
+        "python build_driver.py"
+    ],
+    // Comment out to connect as root instead.
+    "remoteUser": "vscode"
+}
