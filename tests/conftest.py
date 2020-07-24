@@ -59,7 +59,10 @@ def browser_type(browser_name: str):
 
 @pytest.fixture(scope="session")
 def launch_arguments(pytestconfig):
-    return {"headless": not pytestconfig.getoption("--headful")}
+    return {
+        "headless": not pytestconfig.getoption("--headful"),
+        "chromiumSandbox": False,
+    }
 
 
 @pytest.fixture(scope="session")
