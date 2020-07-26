@@ -31,11 +31,12 @@ RUN apt-get update && \
     libgles2 \
     libnotify4 \
     libharfbuzz-icu0 \
+    libvpx5 \
+    libevent-2.1-6 \
     # gstreamer and plugins to support video playback in WebKit
-    gstreamer1.0-gl \
-    gstreamer1.0-plugins-base \
+    libgstreamer-gl1.0-0 \
+    libgstreamer-plugins-bad1.0-0 \
     gstreamer1.0-plugins-good \
-    gstreamer1.0-plugins-bad \
     # Chromium dependencies
     libnss3 \
     libxss1 \
@@ -52,19 +53,7 @@ RUN apt-get update && \
     # FFmpeg to bring in audio and video codecs necessary for playing videos in Firefox
     ffmpeg \
     # (Optional) XVFB if there's a need to run browsers in headful mode
-    xvfb \
-    # For compiling libjpeg for WebKit
-    curl \
-    gcc \
-    make
-
-# Compiling libjpeg for WebKit
-RUN cd /tmp && \
-    curl -s http://www.ijg.org/files/jpegsrc.v8d.tar.gz | tar zx && \
-    cd jpeg-8d && \
-    ./configure && \
-    make && \
-    make install
+    xvfb
 
 # Add directory in which libjpeg was built to the search path
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
