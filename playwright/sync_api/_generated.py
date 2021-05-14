@@ -108,7 +108,7 @@ class Request(SyncBase):
         return mapping.from_maybe_impl(self._impl_obj.method)
 
     @property
-    def post_data(self) -> typing.Optional[str]:
+    def post_data(self) -> typing.Optional[str, int]:
         """Request.post_data
 
         Request's post body, if any.

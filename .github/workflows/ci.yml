@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches:
+      - bugfix-mypy-linting
       - master
       - release-*
   pull_request:
