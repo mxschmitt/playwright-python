@@ -108,7 +108,7 @@ class PlaywrightBDistWheelCommand(BDistWheelCommand):
                         zip.write(from_path, f"playwright/driver/{to_path}")
             if platform == "mac" and self.all:
                 # Ship mac both as 10_13 as and 11_0 universal to work across Macs.
-                universal_location = without_platform + "macosx_11_0_universal2.whl"
+                universal_location = without_platform + "macosx_11_0_universal.whl"
                 shutil.copyfile(wheel_location, universal_location)
                 with zipfile.ZipFile(universal_location, "a") as zip:
                     zip.writestr("playwright/driver/README.md", "Universal Mac package")
