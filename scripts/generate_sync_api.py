@@ -80,6 +80,8 @@ def generate(t: Any) -> None:
             # List of dunder methods to allow without docs
             allow_without_docs_methods = [
                 "__getitem__",
+                "_instrumentation_add_listener",
+                "_instrumentation_remove_listener",
             ]
             if name.startswith("_") and name not in allow_without_docs_methods:
                 continue

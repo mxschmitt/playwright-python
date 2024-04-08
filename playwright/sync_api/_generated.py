@@ -13773,6 +13773,10 @@ mapping.register(BrowserImpl, Browser)
 
 class BrowserType(SyncBase):
     @property
+    def _contexts(self) -> typing.List["BrowserContext"]:
+        return mapping.from_impl_list(self._impl_obj._contexts)
+
+    @property
     def name(self) -> str:
         """BrowserType.name
 
@@ -14437,6 +14441,24 @@ class Playwright(SyncBase):
 
     def __getitem__(self, value: str) -> "BrowserType":
         return mapping.from_impl(self._impl_obj.__getitem__(value=value))
+
+    def _instrumentation_add_listener(
+        self, instrumentation: str, callback: typing.Callable
+    ) -> None:
+        return mapping.from_maybe_impl(
+            self._impl_obj._instrumentation_add_listener(
+                instrumentation=instrumentation, callback=self._wrap_handler(callback)
+            )
+        )
+
+    def _instrumentation_remove_listener(
+        self, instrumentation: str, callback: typing.Callable
+    ) -> None:
+        return mapping.from_maybe_impl(
+            self._impl_obj._instrumentation_remove_listener(
+                instrumentation=instrumentation, callback=self._wrap_handler(callback)
+            )
+        )
 
     def stop(self) -> None:
         """Playwright.stop

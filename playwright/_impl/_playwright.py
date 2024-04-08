@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict
+from typing import Callable, Dict
 
 from playwright._impl._browser_type import BrowserType
 from playwright._impl._connection import ChannelOwner, from_channel
@@ -63,6 +63,20 @@ class Playwright(ChannelOwner):
         self.selectors._remove_channel(selectors_owner)
         self.selectors = selectors
         self.selectors._add_channel(selectors_owner)
+
+    def _instrumentation_add_listener(
+        self, instrumentation: str, callback: Callable
+    ) -> None:
+        self._connection._instrumentation.add_listener(
+            instrumentation, callback  # type: ignore
+        )
+
+    def _instrumentation_remove_listener(
+        self, instrumentation: str, callback: Callable
+    ) -> None:
+        self._connection._instrumentation.remove_listener(
+            instrumentation, callback  # type: ignore
+        )
 
     async def stop(self) -> None:
         pass

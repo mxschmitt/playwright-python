@@ -76,7 +76,7 @@ from playwright._impl._waiter import Waiter
 from playwright._impl._web_error import WebError
 
 if TYPE_CHECKING:  # pragma: no cover
-    from playwright._impl._browser import Browser
+    from playwright._impl._browser import Browser, BrowserType
 
 
 class BrowserContext(ChannelOwner):
@@ -114,6 +114,7 @@ class BrowserContext(ChannelOwner):
         self._tracing = cast(Tracing, from_channel(initializer["tracing"]))
         self._har_recorders: Dict[str, HarRecordingMetadata] = {}
         self._request: APIRequestContext = from_channel(initializer["requestContext"])
+        self._browser_type: Optional[BrowserType] = None
         self._channel.on(
             "bindingCall",
             lambda params: self._on_binding(from_channel(params["binding"])),
@@ -519,6 +520,8 @@ class BrowserContext(ChannelOwner):
         self._close_was_called = True
 
         async def _inner_close() -> None:
+            if self._browser_type:
+                await self._browser_type._will_close_context(self)
             for har_id, params in self._har_recorders.items():
                 har = cast(
                     Artifact,

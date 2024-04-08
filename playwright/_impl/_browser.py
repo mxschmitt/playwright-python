@@ -126,7 +126,7 @@ class Browser(ChannelOwner):
 
         channel = await self._channel.send("newContext", params)
         context = cast(BrowserContext, from_channel(channel))
-        self._browser_type._did_create_context(context, params, {})
+        await self._browser_type._did_create_context(context, params, {})
         return context
 
     async def new_page(

@@ -47,3 +47,8 @@ class LocatorHandlerGreenlet(greenlet.greenlet):
 class EventGreenlet(greenlet.greenlet):
     def __str__(self) -> str:
         return "<EventGreenlet>"
+
+
+class InstrumentationGreenlet(greenlet.greenlet):
+    def __str__(self) -> str:
+        return "<InstrumentationGreenlet>"

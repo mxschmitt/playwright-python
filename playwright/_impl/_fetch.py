@@ -84,6 +84,7 @@ class APIRequest:
             APIRequestContext,
             from_channel(await self.playwright._channel.send("newRequest", params)),
         )
+        await context._instrumentation.emit("onDidCreateRequestContext", context)
         return context
 
 
@@ -95,6 +96,7 @@ class APIRequestContext(ChannelOwner):
         self._tracing: Tracing = from_channel(initializer["tracing"])
 
     async def dispose(self) -> None:
+        await self._instrumentation.emit("onWillCloseRequestContext", self)
         await self._channel.send("dispose")
 
     async def delete(

@@ -26,6 +26,7 @@ from typing import (
     Callable,
     Dict,
     List,
+    Literal,
     Mapping,
     Optional,
     TypedDict,
@@ -38,7 +39,7 @@ from pyee.asyncio import AsyncIOEventEmitter
 
 import playwright
 from playwright._impl._errors import TargetClosedError, rewrite_error
-from playwright._impl._greenlets import EventGreenlet
+from playwright._impl._greenlets import EventGreenlet, InstrumentationGreenlet
 from playwright._impl._helper import Error, ParsedMessagePayload, parse_error
 from playwright._impl._transport import Transport
 
@@ -125,6 +126,7 @@ class ChannelOwner(AsyncIOEventEmitter):
         self._connection: Connection = (
             parent._connection if isinstance(parent, ChannelOwner) else parent
         )
+        self._instrumentation = self._connection._instrumentation
         self._parent: Optional[ChannelOwner] = (
             parent if isinstance(parent, ChannelOwner) else None
         )
@@ -197,9 +199,9 @@ class ProtocolCallback:
         if current_task:
             current_task.add_done_callback(cb)
             self.future.add_done_callback(
-                lambda _: current_task.remove_done_callback(cb)
-                if current_task
-                else None
+                lambda _: (
+                    current_task.remove_done_callback(cb) if current_task else None
+                )
             )
 
 
@@ -249,6 +251,7 @@ class Connection(EventEmitter):
         self._local_utils: Optional["LocalUtils"] = local_utils
         self._tracing_count = 0
         self._closed_error: Optional[Exception] = None
+        self._instrumentation = ClientInstrumentations(self._loop, self._is_sync)
 
     @property
     def local_utils(self) -> "LocalUtils":
@@ -599,3 +602,50 @@ def format_call_log(log: Optional[List[str]]) -> str:
     if len(list(filter(lambda x: x.strip(), log))) == 0:
         return ""
     return "\nCall log:\n" + "\n  - ".join(log) + "\n"
+
+
+class ClientInstrumentations:
+    KIND = Literal[
+        "onDidCreateBrowserContext",
+        "onDidCreateRequestContext",
+        "onWillCloseBrowserContext",
+        "onWillCloseRequestContext",
+    ]
+
+    def __init__(self, loop: asyncio.AbstractEventLoop, is_sync: bool) -> None:
+        self._loop = loop
+        self._is_sync = is_sync
+        self._listeners: Dict["ClientInstrumentations.KIND", List[Callable]] = {
+            "onDidCreateBrowserContext": [],
+            "onDidCreateRequestContext": [],
+            "onWillCloseBrowserContext": [],
+            "onWillCloseRequestContext": [],
+        }
+
+    def add_listener(
+        self, instrumentation: "ClientInstrumentations.KIND", callback: Callable
+    ) -> None:
+        self._listeners[instrumentation].append(callback)
+
+    def remove_listener(
+        self, instrumentation: "ClientInstrumentations.KIND", callback: Callable
+    ) -> None:
+        self._listeners[instrumentation].remove(callback)
+
+    async def emit(
+        self, instrumentation: "ClientInstrumentations.KIND", *args: Any
+    ) -> None:
+        for listener in self._listeners[instrumentation]:
+            if True:
+                handler_finished_future = self._loop.create_future()
+
+                def _handler() -> None:
+                    try:
+                        listener(*args)  # type: ignore
+                        handler_finished_future.set_result(None)
+                    except Exception as e:
+                        handler_finished_future.set_exception(e)
+
+                g = InstrumentationGreenlet(_handler)
+                g.switch()
+                await handler_finished_future

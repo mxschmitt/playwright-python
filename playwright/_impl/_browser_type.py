@@ -15,7 +15,7 @@
 import asyncio
 import pathlib
 from pathlib import Path
-from typing import TYPE_CHECKING, Dict, Optional, Pattern, Sequence, Union, cast
+from typing import TYPE_CHECKING, Dict, List, Optional, Pattern, Sequence, Union, cast
 
 from playwright._impl._api_structures import (
     Geolocation,
@@ -51,11 +51,14 @@ if TYPE_CHECKING:
 
 
 class BrowserType(ChannelOwner):
+    _contexts: List[BrowserContext]
+
     def __init__(
         self, parent: ChannelOwner, type: str, guid: str, initializer: Dict
     ) -> None:
         super().__init__(parent, type, guid, initializer)
         self._playwright: "Playwright"
+        self._contexts: List[BrowserContext] = []
 
     def __repr__(self) -> str:
         return f"<BrowserType name={self.name} executable_path={self.executable_path}>"
@@ -93,7 +96,7 @@ class BrowserType(ChannelOwner):
         browser = cast(
             Browser, from_channel(await self._channel.send("launch", params))
         )
-        self._did_launch_browser(browser)
+        await self._did_launch_browser(browser)
         return browser
 
     async def launch_persistent_context(
@@ -156,7 +159,7 @@ class BrowserType(ChannelOwner):
             BrowserContext,
             from_channel(await self._channel.send("launchPersistentContext", params)),
         )
-        self._did_create_context(context, params, params)
+        await self._did_create_context(context, params, params)
         return context
 
     async def connect_over_cdp(
@@ -171,14 +174,14 @@ class BrowserType(ChannelOwner):
             params["headers"] = serialize_headers(params["headers"])
         response = await self._channel.send_return_as_dict("connectOverCDP", params)
         browser = cast(Browser, from_channel(response["browser"]))
-        self._did_launch_browser(browser)
+        await self._did_launch_browser(browser)
 
         default_context = cast(
             Optional[BrowserContext],
             from_nullable_channel(response.get("defaultContext")),
         )
         if default_context:
-            self._did_create_context(default_context, {}, {})
+            await self._did_create_context(default_context, {}, {})
         return browser
 
     async def connect(
@@ -237,7 +240,7 @@ class BrowserType(ChannelOwner):
         pre_launched_browser = playwright._initializer.get("preLaunchedBrowser")
         assert pre_launched_browser
         browser = cast(Browser, from_channel(pre_launched_browser))
-        self._did_launch_browser(browser)
+        await self._did_launch_browser(browser)
         browser._should_close_connection_on_close = True
 
         def handle_transport_close() -> None:
@@ -252,13 +255,20 @@ class BrowserType(ChannelOwner):
 
         return browser
 
-    def _did_create_context(
+    async def _did_launch_browser(self, browser: Browser) -> None:
+        browser._browser_type = self
+
+    async def _did_create_context(
         self, context: BrowserContext, context_options: Dict, browser_options: Dict
     ) -> None:
+        context._browser_type = self
+        self._contexts.append(context)
         context._set_options(context_options, browser_options)
+        await self._instrumentation.emit("onDidCreateBrowserContext", context)
 
-    def _did_launch_browser(self, browser: Browser) -> None:
-        browser._browser_type = self
+    async def _will_close_context(self, context: BrowserContext) -> None:
+        self._contexts.remove(context)
+        await self._instrumentation.emit("onWillCloseBrowserContext", context)
 
 
 def normalize_launch_params(params: Dict) -> None:

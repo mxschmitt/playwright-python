@@ -113,6 +113,8 @@ class DocumentationProvider:
     ) -> None:
         if class_name in ["BindingCall"] or method_name in [
             "pid",
+            "_instrumentation",
+            "_contexts",
         ]:
             return
         original_method_name = method_name
